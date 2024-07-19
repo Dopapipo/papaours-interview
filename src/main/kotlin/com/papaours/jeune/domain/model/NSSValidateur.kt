@@ -1,6 +1,6 @@
 package com.papaours.jeune.domain.model
 
-import com.papaours.jeune.domain.exception.securitesociale.*
+import com.papaours.jeune.domain.exception.jeune.securitesociale.*
 
 class NSSValidateur {
 

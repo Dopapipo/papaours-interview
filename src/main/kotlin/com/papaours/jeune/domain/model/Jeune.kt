@@ -1,6 +1,5 @@
 package com.papaours.jeune.domain.model
 
-import jakarta.validation.constraints.Email
 import java.time.LocalDate
 import java.util.*
 
@@ -8,7 +7,7 @@ data class Jeune(
     val id: UUID,
     val nom: String,
     val prenom: String,
-    val email: Email,
+    val email: String,
     val dateNaissance: LocalDate,
     val numeroSecuriteSociale: NumeroSecuriteSociale,
     val validateur: JeuneValidateur
@@ -30,6 +29,10 @@ data class Jeune(
     ) {
         init {
             this.validateur(this)
+        }
+
+        override fun toString(): String {
+            return sexe + anneeNaissance + moisNaissance + departementNaissance + insee + ordreEnregistrement + cle
         }
     }
 }

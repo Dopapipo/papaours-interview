@@ -25,4 +25,13 @@ class SwaggerConfiguration {
             .packagesToScan("com.papaours.sessionformation")
             .build()
     }
+
+    @Bean
+    fun jeuneApi(): GroupedOpenApi {
+        return GroupedOpenApi.builder()
+            .group("Jeune")
+            .pathsToMatch("/v1/jeunes/**")
+            .packagesToScan("com.papaours.jeune")
+            .build()
+    }
 }

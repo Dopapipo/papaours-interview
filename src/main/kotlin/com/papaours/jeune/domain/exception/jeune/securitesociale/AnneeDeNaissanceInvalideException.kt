@@ -1,4 +1,4 @@
-package com.papaours.jeune.domain.exception.securitesociale
+package com.papaours.jeune.domain.exception.jeune.securitesociale
 
 class AnneeDeNaissanceInvalideException() : NumeroDeSecuriteSocialeException() {
     override val message: String =
