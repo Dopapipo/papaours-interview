@@ -47,6 +47,6 @@ class NSSValidateur {
     private fun calculerCle(numeroSecuriteSociale: Jeune.NumeroSecuriteSociale): Int {
         val nss =
             numeroSecuriteSociale.sexe + numeroSecuriteSociale.anneeNaissance + numeroSecuriteSociale.moisNaissance + numeroSecuriteSociale.departementNaissance + numeroSecuriteSociale.insee + numeroSecuriteSociale.ordreEnregistrement
-        return (97 - nss.toInt()) % 97
+        return 97 - (nss.toLong() % 97).toInt()
     }
 }
