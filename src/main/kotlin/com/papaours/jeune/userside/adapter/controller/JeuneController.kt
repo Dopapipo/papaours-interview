@@ -7,6 +7,7 @@ import com.papaours.jeune.userside.mapper.JeuneMapper.toAjouterJeuneRestResource
 import com.papaours.jeune.userside.mapper.JeuneMapper.toJeune
 import com.papaours.jeune.userside.restResources.AjouterJeuneRestResource
 import jakarta.validation.Valid
+import java.net.URI
 import org.springframework.hateoas.EntityModel
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -25,6 +26,7 @@ class JeuneController(val ajouterUnJeune: AjouterUnJeune) : JeuneControllerDocum
         val jeune = ajouterJeuneRestResource.toJeune()
         val jeuneAjoute = ajouterUnJeune(jeune)
         val jeuneRestResourceResponse = jeuneAjoute.toAjouterJeuneRestResource().toEntityModel()
-        return ResponseEntity.ok(jeuneRestResourceResponse)
+        val location = "/v1/jeunes/${jeuneAjoute.id}"
+        return ResponseEntity.created(URI.create(location)).body(jeuneRestResourceResponse)
     }
 }
