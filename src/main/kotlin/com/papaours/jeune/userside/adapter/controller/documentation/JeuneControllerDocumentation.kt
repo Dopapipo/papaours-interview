@@ -25,7 +25,7 @@ interface JeuneControllerDocumentation {
     @ApiResponses(
         value = [
             ApiResponse(
-                responseCode = "200",
+                responseCode = "201",
                 description = "Le jeune est ajoute"
             ),
             ApiResponse(

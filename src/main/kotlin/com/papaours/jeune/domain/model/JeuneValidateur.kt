@@ -12,6 +12,9 @@ class JeuneValidateur {
         if (!this.entreQuinzeEtTrenteAns(jeune)) {
             throw AgeInvalideException()
         }
+        if(!this.emailValidation(jeune)){
+            throw FormatInvalideException("Email invalide")
+        }
     }
 
     // TODO
@@ -24,5 +27,8 @@ class JeuneValidateur {
         val dateActuelle = LocalDate.now()
         val age = dateActuelle.year - dateNaissance.year
         return age in 15..30
+    }
+    private fun emailValidation(jeune: Jeune): Boolean {
+        return jeune.email.matches(Regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$"))
     }
 }

@@ -17,6 +17,25 @@ data class Jeune(
         this.validateur(this)
     }
 
+    // on compare pas les ids et les validateurs (temp workaround pour l'id avant discussion)
+    // TODO: talk
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Jeune) return false
+
+        if (nom != other.nom) return false
+        if (prenom != other.prenom) return false
+        if (email != other.email) return false
+        if (dateNaissance != other.dateNaissance) return false
+        if (numeroSecuriteSociale != other.numeroSecuriteSociale) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
     data class NumeroSecuriteSociale(
         val sexe: String,
         val anneeNaissance: String,
@@ -27,6 +46,7 @@ data class Jeune(
         val cle: String,
         val validateur: NSSValidateur
     ) {
+
         init {
             this.validateur(this)
         }

@@ -1,5 +1,6 @@
 package com.papaours.jeune.userside.mapper
 
+import com.papaours.jeune.domain.exception.jeune.FormatInvalideException
 import com.papaours.jeune.domain.model.Jeune
 import com.papaours.jeune.domain.model.JeuneValidateur
 import com.papaours.jeune.domain.model.NSSValidateur
@@ -30,17 +31,29 @@ object JeuneMapper {
             mail = this.email,
             prenom = this.prenom,
             nom = this.nom,
-            dateDeNaissance = this.dateNaissance.toString(),
+            dateDeNaissance = this.dateNaissance.format(),
             numeroSecuriteSociale = this.numeroSecuriteSociale.toString()
         )
     }
-
-    private fun mapToLocalDate(date: String, format: String = "eu"): LocalDate {
-        val dateArray = date.split("-")
-        return LocalDate.of(dateArray[2].toInt(), dateArray[1].toInt(), dateArray[0].toInt())
+    // TODO : parler de ca (ou mettre cette fonction que je réutilise dans d'autres mappers?)
+    public fun LocalDate.format(): String {
+        val dayOfMonth = if (this.dayOfMonth < 10) "0${this.dayOfMonth}" else this.dayOfMonth
+        val monthValue = if (this.monthValue < 10) "0${this.monthValue}" else this.monthValue
+        return "${dayOfMonth}-${monthValue}-${this.year}"
     }
+    private fun mapToLocalDate(date: String): LocalDate {
+        try {
+            val dateArray = date.split("-")
 
-    private fun mapToNumeroDeSecuriteSociale(numeroSecu: String): Jeune.NumeroSecuriteSociale {
+            return LocalDate.of(dateArray[2].toInt(), dateArray[1].toInt(), dateArray[0].toInt())
+        }
+        catch (e: Exception) {
+            throw FormatInvalideException("La date de naissance doit être au format jj-mm-aaaa")
+        }
+    }
+    // Ce que j'aimerais faire : trouver un moyen de lier cette fonction a Jeune.NumeroSecuriteSociale et l'appeler dans
+    // plusieurs mappeurs differents.
+    public fun mapToNumeroDeSecuriteSociale(numeroSecu: String): Jeune.NumeroSecuriteSociale {
         val sexe = numeroSecu.substring(0, 1)
         val annee = numeroSecu.substring(1, 3)
         val mois = numeroSecu.substring(3, 5)
