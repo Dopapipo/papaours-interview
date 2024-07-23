@@ -11,15 +11,25 @@ import java.net.URI
 import org.springframework.hateoas.EntityModel
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @Validated
 @RequestMapping("/v1/jeunes")
 class JeuneController(val ajouterUnJeune: AjouterUnJeune) : JeuneControllerDocumentation {
+    // TODO?: renvoyer un ResponseEntity<RechercherJeuneRestResource>
+    @GetMapping("/{id}")
+    fun getJeuneById(@PathVariable id: UUID): ResponseEntity<AjouterJeuneRestResource> {
+        val jeune = AjouterJeuneRestResource(
+            nom = "Gomez",
+            prenom = "Pedro",
+            mail = "pedrogomez@gomezcorp.com",
+            dateDeNaissance = "05-12-1999",
+            numeroSecuriteSociale = "199123123123296"
+        )
+        return ResponseEntity.ok().body(jeune)
+    }
 
     @PostMapping
     override fun ajouter(@Valid @RequestBody ajouterJeuneRestResource: AjouterJeuneRestResource): ResponseEntity<EntityModel<AjouterJeuneRestResource>> {

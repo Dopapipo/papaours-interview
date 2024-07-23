@@ -17,9 +17,8 @@ class JeuneValidateur {
         }
     }
 
-    // TODO
     private fun champsRemplis(jeune: Jeune): Boolean {
-        return jeune.nom.isNotEmpty() && jeune.prenom.isNotEmpty()
+        return jeune.nom.isNotEmpty() && jeune.prenom.isNotEmpty() && jeune.email.isNotEmpty() && jeune.numeroSecuriteSociale.toString().isNotEmpty()
     }
 
     private fun entreQuinzeEtTrenteAns(jeune: Jeune): Boolean {
